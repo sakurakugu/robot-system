@@ -215,8 +215,8 @@ configure_python() {
             print_success "已设置全局 Python 版本为 $PYTHON_VERSION"
             ;;
         2)
-            SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-            cd "$SCRIPT_DIR"
+            PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
+            cd "$PROJECT_ROOT"
             pyenv local $PYTHON_VERSION
             print_success "已为项目设置 Python 版本为 $PYTHON_VERSION"
             ;;

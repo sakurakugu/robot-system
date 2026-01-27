@@ -224,11 +224,13 @@ check_project_deps() {
     echo "  项目依赖"
     echo "=========================================="
     
-    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+    PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
     
     # Node.js项目依赖
-    check_npm_packages "$SCRIPT_DIR/app/dance-choreo/backend" "后端 (dance-choreo/backend)"
-    check_npm_packages "$SCRIPT_DIR/app/dance-choreo/frontend" "前端 (dance-choreo/frontend)"
+    check_npm_packages "$PROJECT_ROOT/app/dance-choreo/backend" "后端 - Dance Chore"
+    check_npm_packages "$PROJECT_ROOT/app/dance-choreo/frontend" "前端 - Dance Chore"
+    check_npm_packages "$PROJECT_ROOT/app/robot-chat/cloud/backend" "后端 - Robot Chat"
+    check_npm_packages "$PROJECT_ROOT/app/robot-chat/cloud/frontend" "前端 - Robot Chat"
     
     # Python包
     check_python_package "numpy" "NumPy" false
@@ -243,13 +245,15 @@ check_project_files() {
     echo "  项目文件"
     echo "=========================================="
     
-    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+    PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
+    SCRIPT_DIR="$PROJECT_ROOT/tools/scripts/setup"
     
-    check_path "$SCRIPT_DIR/app/dance-choreo/backend/src/index.ts" "后端入口文件" true
-    check_path "$SCRIPT_DIR/app/dance-choreo/frontend/src/main.ts" "前端入口文件" true
-    check_path "$SCRIPT_DIR/app/robot-control" "机器狗控制目录" true
-    check_path "$SCRIPT_DIR/start.sh" "启动脚本" true
-    check_path "$SCRIPT_DIR/stop.sh" "停止脚本" true
+    check_path "$PROJECT_ROOT/app/dance-choreo/backend/src/index.ts" "机器人编舞后端入口文件" true
+    check_path "$PROJECT_ROOT/app/dance-choreo/frontend/src/main.ts" "机器人编舞前端入口文件" true
+    check_path "$PROJECT_ROOT/app/robot-chat/cloud/backend/src/server.ts" "机器人聊天后端入口文件" true
+    check_path "$PROJECT_ROOT/app/robot-chat/cloud/frontend/src/main.ts" "机器人聊天前端入口文件" true
+    # check_path "$PROJECT_ROOT/app/robot-control" "机器狗控制目录" true
+    check_path "$PROJECT_ROOT/start.sh" "启动脚本" true
     
     echo ""
 }
@@ -282,10 +286,10 @@ check_network() {
     fi
     
     if ping -c 1 -W 2 baidu.com &> /dev/null; then
-        print_success "DNS解析: 正常"
+        print_success "DNS 解析: 正常"
         PASSED=$((PASSED + 1))
     else
-        print_warning "DNS解析: 失败"
+        print_warning "DNS 解析: 失败"
         WARNINGS=$((WARNINGS + 1))
     fi
     

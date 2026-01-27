@@ -4,7 +4,7 @@
 # @brief 协调系统启动和关闭
 #
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import List, Tuple
 from .utils import (
     ROOT,
     LOGS_DIR,
@@ -18,13 +18,15 @@ from .utils import (
     http_ok,
     pkill_patterns,
     check_env,
+    is_port_in_use,
+    ensure_ports_available,
 )
 
 
 DANCE_BACKEND = ROOT / "app" / "dance-choreo" / "backend"
 DANCE_FRONTEND = ROOT / "app" / "dance-choreo" / "frontend"
-CHAT_BACKEND = ROOT / "app" / "robot-chat" / "backend"
-CHAT_FRONTEND = ROOT / "app" / "robot-chat" / "frontend"
+CHAT_BACKEND = ROOT / "app" / "robot-chat" / "cloud" / "backend"
+CHAT_FRONTEND = ROOT / "app" / "robot-chat" / "cloud" / "frontend"
 
 def _read_text(path: Path) -> str:
     try:
@@ -47,6 +49,17 @@ def _parse_env_port(env_path: Path, default_port: int) -> int:
     text = _read_text(env_path)
     import re
     m = re.search(r"^PORT\s*=\s*(\d+)\s*$", text, re.M)
+    if m:
+        try:
+            return int(m.group(1))
+        except Exception:
+            pass
+    return default_port
+
+def _parse_env_value(env_path: Path, key: str, default_port: int) -> int:
+    text = _read_text(env_path)
+    import re
+    m = re.search(rf"^{key}\s*=\s*(\d+)\s*$", text, re.M)
     if m:
         try:
             return int(m.group(1))
@@ -81,6 +94,28 @@ def _chat_backend_port() -> int:
     if example.exists():
         return _parse_env_port(example, 3001)
     return 3001
+
+def _chat_backend_ports() -> dict:
+    env_path = CHAT_BACKEND / ".env"
+    example = CHAT_BACKEND / ".env.example"
+    src = env_path if env_path.exists() else example
+
+    defaults = {
+        "http": 9004,
+        "control": 9000,
+        "business": 9001,
+        "audio_upload": 9002,
+        "audio_download": 9003,
+    }
+    if not src or not src.exists():
+        return defaults
+    return {
+        "http": _parse_env_value(src, "PORT", defaults["http"]),
+        "control": _parse_env_value(src, "CONTROL_PORT", defaults["control"]),
+        "business": _parse_env_value(src, "BUSINESS_PORT", defaults["business"]),
+        "audio_upload": _parse_env_value(src, "AUDIO_UPLOAD_PORT", defaults["audio_upload"]),
+        "audio_download": _parse_env_value(src, "AUDIO_DOWNLOAD_PORT", defaults["audio_download"]),
+    }
 
 def _chat_frontend_port() -> int:
     vite_path = CHAT_FRONTEND / "vite.config.ts"
@@ -121,12 +156,16 @@ def start_chat() -> List[Tuple[str, int]]:
         # 首次创建 .env 即退出，等待用户配置
         return []
 
+    ports = _chat_backend_ports()
+    if not ensure_ports_available(ports, interactive=True):
+        return []
+
     ensure_node_modules(CHAT_BACKEND)
     ensure_node_modules(CHAT_FRONTEND)
 
     procs: List[Tuple[str, int]] = []
 
-    print(f"🚀 启动对话系统后端...  (http://localhost:{_chat_backend_port()})")
+    print(f"🚀 启动对话系统后端...  (http://localhost:{ports['http']})")
     backend_log = LOGS_DIR / "robot-chat" / "backend.log"
     p_backend, pid_backend = spawn(["npm", "run", "dev"], cwd=CHAT_BACKEND, log_path=backend_log)
     write_pid("chat-backend", pid_backend)
@@ -177,14 +216,14 @@ def start_all(app: str) -> List[Tuple[str, int]]:
 
     procs: List[Tuple[str, int]] = []
     if app in ("all", "dance"):
-        print("\n========================================")
+        print("\n----------------------------------------")
         print("  📦 准备编舞系统 (Dance Choreo)")
-        print("========================================")
+        print("----------------------------------------")
         procs += start_dance()
     if app in ("all", "chat"):
-        print("\n========================================")
+        print("\n----------------------------------------")
         print("  📦 准备对话系统 (Robot Chat)")
-        print("========================================")
+        print("----------------------------------------")
         started = start_chat()
         # 如果返回空，可能是 .env 刚创建
         if not started and (CHAT_BACKEND / ".env").exists():

@@ -209,11 +209,11 @@ install_dev_tools() {
     print_success "pip: $(pip --version | awk '{print $2}')"
 }
 
-# 创建快捷命令
+# 创建快捷命令（暂时不创建）
 create_shortcuts() {
 #     print_info "创建便捷命令..."
     
-#     SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+#     PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
     
 #     # 添加到 .bashrc
 #     if [ -f ~/.bashrc ]; then
@@ -221,9 +221,9 @@ create_shortcuts() {
 #             cat >> ~/.bashrc << EOF
 
 # # robot-dog aliases
-# alias robot-start='cd "$SCRIPT_DIR" && ./start.sh'
-# alias robot-stop='cd "$SCRIPT_DIR" && ./stop.sh'
-# alias robot-log='cd "$SCRIPT_DIR" && tail -f logs/*.log'
+# alias robot-start='cd "$PROJECT_ROOT" && ./start.sh'
+# alias robot-stop='cd "$PROJECT_ROOT" && ./start.sh --stop'
+# alias robot-log='cd "$PROJECT_ROOT" && tail -f logs/*.log'
 # EOF
 #             print_success "已添加快捷命令到 ~/.bashrc"
 #             print_info "运行 'source ~/.bashrc' 或重新打开终端后生效"

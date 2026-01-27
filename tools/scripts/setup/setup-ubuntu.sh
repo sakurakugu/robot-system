@@ -152,17 +152,17 @@ create_directories() {
 set_permissions() {
     print_info "设置脚本执行权限..."
     
-    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+    PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
     
-    chmod +x "$SCRIPT_DIR/start.sh"
+    chmod +x "$PROJECT_ROOT/start.sh"
     
-    if [ -d "$SCRIPT_DIR/scripts" ]; then
-        chmod +x "$SCRIPT_DIR/scripts"/*.sh 2>/dev/null || true
+    if [ -d "$PROJECT_ROOT/tools/scripts" ]; then
+        chmod +x "$PROJECT_ROOT/tools/scripts"/*.sh 2>/dev/null || true
     fi
 
-    if [ -d "$SCRIPT_DIR/tools" ]; then
-        chmod +x "$SCRIPT_DIR/tools"/*.sh 2>/dev/null || true
-        chmod +x "$SCRIPT_DIR/tools"/*.py 2>/dev/null || true
+    if [ -d "$PROJECT_ROOT/tools" ]; then
+        chmod +x "$PROJECT_ROOT/tools"/*.sh 2>/dev/null || true
+        chmod +x "$PROJECT_ROOT/tools"/*.py 2>/dev/null || true
     fi
     
     print_success "权限设置完成"
