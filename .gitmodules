@@ -1,0 +1,9 @@
+[submodule "repos/robot-cloud"]
+	path = repos/robot-cloud
+	url = https://github.com/sakurakugu/robot-cloud.git
+[submodule "repos/robot-onboard"]
+	path = repos/robot-onboard
+	url = https://github.com/sakurakugu/robot-onboard.git
+[submodule "repos/robot-phone"]
+	path = repos/robot-phone
+	url = https://github.com/sakurakugu/robot-phone.git
