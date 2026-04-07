@@ -21,7 +21,7 @@ robot-system/
 ## 首次拉取
 
 ```bash
-git clone --recurse-submodules <robot-system 仓库地址>
+git clone --recurse-submodules git@github.com:sakurakugu/robot-system.git
 cd robot-system
 ```
 
@@ -51,3 +51,8 @@ git submodule update --remote --merge
 详细操作说明见：
 
 - `docs/3. 子仓库与拉取说明.md`
+
+## 其他
+
+该仓库是拆分自 https://github.com/sakurakugu/Robot-System-Old 仓库（已归档）。
+然后如果提交消息是 `重构: [xxx] xxx`, `新增: [xxx] xxx` 这种，而不是 `重构: xxx`, `新增: xxx` 这种， 就是从旧仓库迁移过来的。
