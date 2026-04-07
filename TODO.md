@@ -13,7 +13,7 @@
 6. 改一下动作的提示词
 
 7. https://grpc.org.cn/docs/what-is-grpc/introduction/
-   让机器人端通过 grpc 连接到后端的 python 服务，然后把结果返回给 nodejs 服务
+   让机器人端通过 grpc 连接到后端的 python 服务，然后把结果返回给 nodejs 服务 （感觉还是直接将edge音频的改成阿里的，然后直接改成nodejs更好）
 
 8. 让大模型调用工具而不是通过提示词来行动
    https://bailian.console.aliyun.com/cn-beijing/?spm=5176.29597918.J_SEsSjsNv72yRuRFS2VknO.2.55ed7b08Zvf6Yi&tab=doc#/doc/?type=model&url=2862208
@@ -34,6 +34,8 @@
     4. 编舞时，新增机器人/狗只是一个占位符，要添加对应的映射才是正确的，而不是直接从机器人列表中指定机器人。当然这样也可以，只不过最好把他抽离出来。
     5. 然后一个动作轨道对应一个机器人/狗的动作，动作轨道可以复制，还有动作轨道的可以改名？
     6. 手机中机器狗映射可以保存，而不是退出后映射就消失了
+
+13. 记得把服务器 8554 端口开出来，否则前端无法连接到后端的视频推流
 
 # 次要需求
 
