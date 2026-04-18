@@ -5,6 +5,7 @@
 - `repos/robot-cloud`：云端前后端
 - `repos/robot-onboard`：机器狗本体端
 - `repos/robot-phone`：手机端
+- `repos/robot-studio`：电脑端
 
 ## 目录结构
 
@@ -16,6 +17,7 @@ robot-system/
     robot-cloud/
     robot-onboard/
     robot-phone/
+    robot-studio/
 ```
 
 ## 首次拉取
