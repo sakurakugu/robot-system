@@ -7,6 +7,6 @@
 [submodule "repos/robot-phone"]
 	path = repos/robot-phone
 	url = git@github.com:sakurakugu/robot-phone.git
-[submodule "repos/robot-studio"]
-	path = repos/robot-studio
-	url = git@github.com:sakurakugu/robot-studio.git
+[submodule "repos/robot-pc"]
+	path = repos/robot-pc
+	url = git@github.com:sakurakugu/robot-pc.git
