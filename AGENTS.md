@@ -5,6 +5,8 @@
 | 目录                                     | 技术栈                                        | 说明               |
 | ---------------------------------------- | --------------------------------------------- | ------------------ |
 | `repos/robot-phone/RobotPhone`           | React Native 0.84 + TypeScript                | 手机端 App         |
+| `repos/robot-pc/前端/`                   | Vue 3 + TypeScript + Vite                     | 电脑端工作站前端   |
+| `repos/robot-pc/后端/`                   | Node.js 24 + TypeScript + Express + WebSocket | 电脑端工作站后端   |
 | `repos/robot-cloud/前端/`                | Vue 3 + TypeScript + Vite                     | 云端管理前端       |
 | `repos/robot-cloud/后端/`                | Node.js 24 + TypeScript + Express + WebSocket | 云端后端服务       |
 | `repos/robot-onboard/robot-agent/`       | Python 3.10+                                  | 机器狗本体代理程序 |
