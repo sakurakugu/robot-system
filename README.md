@@ -1,11 +1,11 @@
 # 机器人控制管理系统
 
-当前仓库为父仓库，负责聚合公共文档、公共工具，以及 3 个子仓库：
+当前仓库为父仓库，负责聚合公共文档、公共工具，以及 4 个子仓库：
 
 - `repos/robot-cloud`：云端前后端
 - `repos/robot-onboard`：机器狗本体端
 - `repos/robot-phone`：手机端
-- `repos/robot-studio`：电脑端
+- `repos/robot-pc`：电脑端工作站
 
 ## 目录结构
 
@@ -17,7 +17,7 @@ robot-system/
     robot-cloud/
     robot-onboard/
     robot-phone/
-    robot-studio/
+    robot-pc/
 ```
 
 ## 首次拉取
@@ -42,7 +42,7 @@ git pull
 git submodule update --init --recursive
 ```
 
-如果你希望直接把 3 个子仓库都更新到各自当前分支的最新提交：
+如果你希望直接把 4 个子仓库都更新到各自当前分支的最新提交：
 
 ```bash
 git submodule update --remote --merge
@@ -52,7 +52,9 @@ git submodule update --remote --merge
 
 详细操作说明见：
 
+- `docs/2. 应用程序目录结构.md`
 - `docs/3. 子仓库与拉取说明.md`
+- `docs/4. 全端链路流程图.md`
 
 ## 其他
 
