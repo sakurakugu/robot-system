@@ -48,6 +48,17 @@ git submodule update --init --recursive
 git submodule update --remote --merge
 ```
 
+## 启动入口
+
+统一启动脚本：
+
+```bash
+python tools/1.启动项目.py --pc
+python tools/1.启动项目.py --cloud
+python tools/1.启动项目.py --phone
+python tools/1.启动项目.py --onboard
+```
+
 ## 详细说明
 
 详细操作说明见：
