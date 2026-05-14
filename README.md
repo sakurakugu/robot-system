@@ -71,3 +71,5 @@ python tools/1.启动项目.py --onboard
 
 该仓库是拆分自 https://github.com/sakurakugu/Robot-System-Old 仓库（已归档）。
 然后如果提交消息是 `重构: [xxx] xxx`, `新增: [xxx] xxx` 这种，而不是 `重构: xxx`, `新增: xxx` 这种， 就是从旧仓库迁移过来的。
+
+> 一些文档在 other/ 目录下，路径为 `robot-system/other/`
